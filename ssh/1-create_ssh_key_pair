@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# This script creates an RSA key pair named school with a passphrase and 4096 bits.
+
+# Define the filename for the private key
+PRIVATE_KEY="school"
+
+# Define the passphrase for the private key
+PASSPHRASE="betty"
+
+# Define the number of bits for the key
+BITS=4096
+
+# Generate the key pair with the specified parameters
+ssh-keygen -t rsa -b $BITS -f $PRIVATE_KEY -N $PASSPHRASE
+
+# Check if the private key exists and has the correct format
+if [[ -f $PRIVATE_KEY && $(file $PRIVATE_KEY) == *"OpenSSH"* ]]; then
+    echo "$PRIVATE_KEY: OpenSSH private key"
+else
+    echo "$PRIVATE_KEY: Unexpected file format or not found"
+fi
